@@ -1,0 +1,62 @@
+//fonts
+$font-pt: 'PT Sans', sans-serif
+// Colors
+$bg-color: #2c3e50
+$blue: #3498db
+$purple: #9b59b6
+$red: #e74c3c
+$green: #2ecc71
+$gray: #84817a
+
+body
+  background-color: $bg-color
+  color: white
+
+.title
+  margin: 10px 0px
+  font-size: 5.5em
+  font-family: $font-pt
+  font-weight: normal
+  text-align: center
+  & span:first-child
+    color: $blue
+  & span:nth-child(2)
+    color: $purple
+  & span:last-child
+    color: $red
+  @media screen and (max-width: 576px)
+    font-size: 3.5em
+
+.game-container
+  background-color: #34495e
+  padding: 30px 0px
+  margin-bottom: 100px
+
+.btn-reset
+  margin-top: 20px
+  padding: 10px 20px
+  border-color: #9b59b6
+  background-color: $purple
+
+.tic-item
+  background-color: $gray
+  height: 120px
+  border-radius: 20px
+  display: flex
+  justify-content: center
+  flex-direction: column
+  text-align: center
+  margin-top: 20px
+  @media screen and (max-width: 576px)
+    height: 80px
+
+footer
+  position: fixed
+  left: 0
+  bottom: 0
+  width: 100%
+  background-color: #2980b9
+  color: white
+  text-align: center
+  padding: 15px 0px
+  font-size: 0.8em

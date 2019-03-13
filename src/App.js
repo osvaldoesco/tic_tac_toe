@@ -1,25 +1,125 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container, Row, Col, Button } from 'reactstrap';
+import TicItem from './components/TicItem';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.sass';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    let n = 5;
+    let matrix = [];
+    for(let i=0; i<n; i++) {
+      matrix[i] = [];
+      for(let j=0; j<n; j++) {
+        matrix[i][j] = null;
+      }
+    }
+    this.state = { matrix };
+  }
+
+  listTicItems = () => {
+    let content;
+    content = this.state.matrix[0].map((item, index) => {
+      return (
+        <button key={index} onClick={() => this.setValue(0, index, "0") }>
+          <TicItem value={item}/>
+        </button>
+      );
+    });
+    return content;
+  }
+
+  setValue = (i, j, value) => {
+    let { matrix } = this.state;
+    if(matrix[i][j] === null){
+      matrix[i][j] = value;
+      this.setState({ matrix });
+    } else {
+      alert("Seleccione otro espacio");
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1 className="title">
+          <span>Tic </span>
+          <span>Tac </span>
+          <span>Toe </span>
+        </h1>
+        {this.listTicItems()}
+        <div className="game-container">
+          <Container>
+            <Row>
+              <Col xs="4" md={{size: 2, offset: 3}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+              <Col xs="4" md={{size: 2}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+              <Col xs="4" md={{size: 2}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" md={{size: 2, offset: 3}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+              <Col xs="4" md={{size: 2}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+              <Col xs="4" md={{size: 2}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="4" md={{size: 2, offset: 3}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+              <Col xs="4" md={{size: 2}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+              <Col xs="4" md={{size: 2}}>
+                <div className="tic-item">
+                  hola
+                </div>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col xs="4" md={{size: 2, offset: 3}}>
+                <Button
+                  onClick={() => this.setValue(0,0,"X")}
+                  color="primary"
+                  className="btn-reset">
+                  Reset
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+        <footer>
+          Osvaldo Escobar - Applaudo Studios
+        </footer>
       </div>
     );
   }
