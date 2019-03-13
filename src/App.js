@@ -21,15 +21,18 @@ class App extends Component {
   }
 
   listTicItems = () => {
-    let content;
-    content = this.state.matrix[0].map((item, index) => {
-      return (
-        <button key={index} onClick={() => this.setValue(0, index, "0") }>
-          <TicItem value={item}/>
-        </button>
-      );
+    let content, contentOuter;
+    contentOuter = this.state.matrix.map((item, i) => {
+      content = this.state.matrix[i].map((item, index) => {
+        return (
+          <button key={index} onClick={() => this.setValue(i, index, "0") }>
+            <TicItem value={item}/>
+          </button>
+        );
+      });
+      return (<div className="tic-row">{content}</div>)
     });
-    return content;
+    return contentOuter;
   }
 
   setValue = (i, j, value) => {
