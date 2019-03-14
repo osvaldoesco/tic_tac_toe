@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TicItem = ({value}) => {
-  return ( <p>Hola {value}</p> );
+  return ( <div>{value || "-"}</div> );
 }
 
 export default TicItem;
