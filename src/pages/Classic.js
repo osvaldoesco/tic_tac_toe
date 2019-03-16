@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import Game from '../components/Game';
 
 class Classic extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      page: 'Classic'
-    }
+    this.state = { page: 'Classic'};
   }
 
   render() {
     return (
-      <fragment>
-        <h1>Classic</h1>
-      </fragment>
+      <Game n={3} />
     );
   }
 }
