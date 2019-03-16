@@ -41,7 +41,7 @@ const AppRoutes = () =>
         atActive={bounceTransition.atActive}
         className="switch-wrapper">
         <Route path="/classic" component={Classic} />
-        <Route path="/customized" component={Customized} />
+        <Route path="/customized/:n" component={Customized} />
         <Route path="/" exact component={Home} />
       </AnimatedSwitch>
     </Router>

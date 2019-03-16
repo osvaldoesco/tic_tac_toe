@@ -16,6 +16,7 @@ body
 
 header
   padding: 20px 0px
+
 .brand-logo
   @media screen and (max-width: 767px)
     text-align: center
@@ -67,6 +68,43 @@ header
     @extend .player-button
     background-color: $purple
 
+.customized-value
+  position: relative
+  padding-left: 40px !important
+  padding-right: 40px !important
+  h4
+    margin-bottom: 30px
+  button
+    border-style: none
+    padding: 7px 20px
+    border-radius: 5px
+    background-color: $purple
+    margin-top: 20px
+    color: white
+    font-weight: bold
+
+.close-customized
+  display: block
+  position: absolute
+  top: 10px
+  right: 10px
+  svg
+    font-size: 18px
+    color: $purple
+
+.error-message-container
+  text-align: center
+  width: 300px
+  margin: 0 auto
+  h2
+    padding: 100px 0px 50px
+    color: red
+  p
+    color: $gray
+    font-size: 18px
+    margin-bottom: 100px
+
+
 footer
   width: 100%
   background-color: $blue
@@ -79,6 +117,9 @@ footer
 //Usabillity
 .padding-20px
   padding: 20px 0px
+
+.padding-100px
+  padding: 100px 0px
 
 .padding-40px
   padding: 40px 0px

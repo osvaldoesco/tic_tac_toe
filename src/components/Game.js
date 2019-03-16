@@ -140,15 +140,19 @@ class Game extends Component {
       <Container>
         <Row className="padding-20px">
           { (this.state.n === grid3) ?
-            <Col xs={{offset: 2, size: 10}} md={{offset:4, size:4}}>
+            <Col xs={{offset: 1, size: 10}} md={{offset:4, size:4}}>
               <table>
+                <tbody>
                 {this.listTicItems()}
+                </tbody>
               </table>
             </Col>
             :
             <Col xs="12" md={{offset:3, size:6}}>
               <table>
-                {this.listTicItems()}
+                <tbody>
+                  {this.listTicItems()}
+                </tbody>
               </table>
             </Col>
           }
