@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import TicItem from './components/TicItem';
+import Confetti from 'react-confetti';
+//Const
+import { value0, valueX, zeroGreenImg, xGreenImg,  } from './const/Game';
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.sass';
@@ -12,13 +16,14 @@ class App extends Component {
     let n = 3;
     let matrix = [];
     let turn = 0;
+    let live = true;
     for(let i=0; i<n; i++) {
       matrix[i] = [];
       for(let j=0; j<n; j++) {
         matrix[i][j] = null;
       }
     }
-    this.state = { matrix, n, turn };
+    this.state = { matrix, n, turn, live };
   }
 
   listTicItems = () => {
@@ -26,38 +31,44 @@ class App extends Component {
     contentOuter = this.state.matrix.map((item, i) => {
       content = this.state.matrix[i].map((item, index) => {
         return (
-          <button key={index} onClick={() => this.setValue(i, index) }>
+          <td key={index} onClick={() => this.setValue(i, index) }>
             <TicItem value={item}/>
-          </button>
+          </td>
         );
       });
-      return (<div key={i} className="tic-row">{content}</div>)
+      return (<tr key={i} className="tic-row">{content}</tr>)
     });
     return contentOuter;
   }
 
-   isEven = (turn) => {
+  isEven = (turn) => {
     let value = (turn % 2 === 0) ? true : false;
-   return value;
+    return value;
   }
 
   setValue = (i, j) => {
+    if(this.state.live === false) return 0;//Verify if the game still live
     let { matrix, turn, n } = this.state;
+    //Validate if the space is available
     if(matrix[i][j] === null){
-      let value = (this.isEven(turn)) ? "X" : "0";
-      matrix[i][j] = value;
+      let value = (this.isEven(turn)) ? valueX : value0; //Check the turn value
+      matrix[i][j] = value; //
       this.setState({ matrix });
       let track = this.evaluateWinner(value);
       if(track === 1){
+        this.setState({live: false});
         alert('Ganaste');
       }
       this.setState({turn: turn+1 });
       if(turn ===((n*n)-1) && (track===0)){
+        this.setState({live: false});
         alert("Empate");
         return 0;
       }
     } else {
-      alert("Seleccione otro espacio");
+      if(this.state.live){
+        alert("Seleccione otro espacio");
+      }
     }
   }
 
@@ -117,80 +128,113 @@ class App extends Component {
     return 0;
   }
 
+  resetGame = () => {
+    let live = true;
+    let {matrix, n} = this.state;
+    let turn = 0;
+    for(let i=0; i<n; i++) {
+      matrix[i] = [];
+      for(let j=0; j<n; j++) {
+        matrix[i][j] = null;
+      }
+    }
+    this.setState({ live, matrix, turn });
+  }
   render() {
     return (
       <div className="App">
-        <h1 className="title">
-          <span>Tic </span>
-          <span>Tac </span>
-          <span>Toe </span>
-        </h1>
-        {this.listTicItems()}
-        <div className="game-container">
+        <header>
           <Container>
             <Row>
-              <Col xs="4" md={{size: 2, offset: 3}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-              <Col xs="4" md={{size: 2}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-              <Col xs="4" md={{size: 2}}>
-                <div className="tic-item">
-                  hola
+              <Col xs={{offset: 3, size: 6}} md={{ offset: 0, size: 3}}>
+                <div className="brand-logo">
+                  <img
+                    alt="logo"
+                    title="logo"
+                    src="/assets/img/game/0_purple.png"
+                    width="100" />
                 </div>
               </Col>
             </Row>
-            <Row>
-              <Col xs="4" md={{size: 2, offset: 3}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-              <Col xs="4" md={{size: 2}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-              <Col xs="4" md={{size: 2}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs="4" md={{size: 2, offset: 3}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-              <Col xs="4" md={{size: 2}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-              <Col xs="4" md={{size: 2}}>
-                <div className="tic-item">
-                  hola
-                </div>
-              </Col>
-            </Row>
+          </Container>
+        </header>
 
+        <div className="cotent">
+          <Container>
             <Row>
-              <Col xs="4" md={{size: 2, offset: 3}}>
-                <Button
-                  color="primary"
-                  className="btn-reset">
+              <Col xs="12" md={{offset:2, size: 8}}>
+                <h3 className="title-inf"> DESCRIPTION </h3>
+                <p className="text-inf">
+                  Tic-tac-toe (American English), noughts and crosses (British English)
+                  or Xs and Os, is a paper-and-pencil game for two players, X and O, who
+                  take turns marking the spaces in a 3×3 grid. The player who succeeds
+                  in placing three of their marks in a horizontal, vertical, or diagonal
+                  row wins the game.
+                </p>
+              </Col>
+            </Row>
+            <Row className="padding-40px">
+              <Col xs="12" md={{offset:2, size: 8}}>
+                <h3 className="title-inf"> GAME MODES </h3>
+                <p className="text-inf">
+                  In this app we have two differents modes, one is the classic 3x3 grid,
+                  the second one is a customized grid, you can choose the grid dimensions.
+                </p>
+              </Col>
+            </Row>
+            <Row className="padding-40px">
+              <Col xs="12" md={{offset:2, size:4}} className="text-center">
+                <img alt="classic" title="classic" src={xGreenImg} width="200"/>
+                <h4 className="title-inf"> CLASSIC </h4>
+                <p className="text-inf">
+                  In this app we have two differents modes, one is the classic 3x3 grid,
+                  the second one is a customized grid, you can choose the grid dimensions.
+                </p>
+              </Col>
+              <Col xs="12" md={{ size: 4 }} className="text-center">
+                <img alt="customized" title="customized" src={zeroGreenImg} width="200"/>
+                <h4 className="title-inf"> NxN Mode </h4>
+                <p className="text-inf">
+                  In this app we have two differents modes, one is the classic 3x3 grid,
+                  the second one is a customized grid, you can choose the grid dimensions.
+                </p>
+              </Col>
+            </Row>
+            <Row className="padding-40px">
+              <Col xs="12" md={{offset:2, size:8}}>
+                <table>
+                  {this.listTicItems()}
+                </table>
+              </Col>
+            </Row>
+            <Row className="padding-40px">
+              <Col xs="6" md={{offset:3, size:3}}>
+                <div className="player-div">
+                  <button
+                    className={`player-button ${ this.isEven(this.state.turn)? '' : 'opacity03' } `}>
+                    Player 1
+                  </button>
+                </div>
+              </Col>
+              <Col xs="6" md={{ size:3 }}>
+                <div className="player-div">
+                  <button
+                    className={`player-button__purple ${ this.isEven(this.state.turn)? 'opacity03' : '' } `}>
+                    Player 2
+                  </button>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="12" md={{offset:2, size:8}}>
+                <button onClick={() => this.resetGame()} className="btn-reset">
                   Reset
-                </Button>
+                </button>
               </Col>
             </Row>
           </Container>
         </div>
+
         <footer>
           Osvaldo Escobar - Applaudo Studios
         </footer>

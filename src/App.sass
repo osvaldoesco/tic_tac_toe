@@ -2,66 +2,92 @@
 $font-pt: 'PT Sans', sans-serif
 // Colors
 $bg-color: #2c3e50
-$blue: #3498db
-$purple: #9b59b6
+$blue: #00FBFA
+$purple: #A900E1
 $red: #e74c3c
-$green: #2ecc71
-$gray: #84817a
+$green: #7DF200
+$gray: #95a5a6
 
 body
   background-color: $bg-color
-  color: white
 
-.title
-  margin: 10px 0px
-  font-size: 5.5em
-  font-family: $font-pt
-  font-weight: normal
+header
+  padding: 20px 0px
+.brand-logo
+  @media screen and (max-width: 767px)
+    text-align: center
+
+.cotent
+  padding: 40px 0px
+
+.title-inf
+  color: white
   text-align: center
-  & span:first-child
-    color: $blue
-  & span:nth-child(2)
-    color: $purple
-  & span:last-child
-    color: $red
-  @media screen and (max-width: 576px)
-    font-size: 3.5em
+  font-weight: bold
+
+.text-inf
+  text-align: center
+  color: $gray
 
 .game-container
   background-color: #34495e
-  padding: 30px 0px
+  padding: 30px 0p
   margin-bottom: 100px
 
 .btn-reset
-  margin-top: 20px
   padding: 10px 20px
   border-color: #9b59b6
-  background-color: $purple
-
-.tic-item
-  background-color: $gray
-  height: 120px
-  border-radius: 20px
-  display: flex
-  justify-content: center
-  flex-direction: column
-  text-align: center
-  margin-top: 20px
-  @media screen and (max-width: 576px)
-    height: 80px
+  background-color: $red
+  border-style: none
+  color: white
+  border-radius: 5px
+  font-weight: bold
 
 .tic-row
-  padding: 10px 0px
   button
-    width: 80px
-    height: 80px
+    width: 120px
+    height: 120px
     text-align: center
+    background-color: transparent
+    border-style: none
+    padding: 7px
+    margin: 0px
+
+.tic-item
+  width: 100%
+
+.tic-item-img
+  width: 100%
+
+.player-div
+  text-align: center
+
+.player-button
+  padding: 10px 30px
+  border-radius: 5px
+  border-style: none
+  background-color: $blue
+  color: $bg-color
+  font-weight: bolder
+  font-size: 17px
+  &__purple
+    @extend .player-button
+    background-color: $purple
 
 footer
-
   width: 100%
-  background-color: #2980b9
+  background-color: $blue
   color: white
   text-align: center
   padding: 15px 0px
   font-size: 0.8em
+
+
+//Usabillity
+.padding-40px
+  padding: 40px 0px
+  @media screen and (max-width: 767px)
+    padding: 30px 0px
+
+.opacity03
+  opacity: 0.3
