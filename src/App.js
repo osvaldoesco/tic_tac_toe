@@ -18,7 +18,7 @@ class App extends Component {
                     <img
                       alt="logo"
                       title="logo"
-                      src="/assets/img/game/0_purple.png"
+                      src="/assets/img/logo1.png"
                       width="100" />
                   </a>
                 </div>
@@ -32,7 +32,27 @@ class App extends Component {
         </div>
 
         <footer>
-          Osvaldo Escobar - Applaudo Studios
+        <Container>
+          <Row>
+            <Col xs={{offset: 2, size: 8}} md={{ offset: 0, size: 6}}>
+              <div className="footer-section1">
+                <img
+                  alt="logo-footer"
+                  title="logo-footer"
+                  src="/assets/img/logo-footer.png"
+                  width="100" />
+                <p>Copyrights all reserved. Designed and developed in March 15th 2019</p>
+              </div>
+            </Col>
+            <Col xs={{offset: 2, size: 8}} md={{ offset: 0, size: 6}}>
+              <div className="footer-section2">
+                <p> Name: Osvaldo Escobar. </p>
+                <p> Phone: +(503)72606072 </p>
+                <p> Email: eoeg1410@gmail.com </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
         </footer>
       </div>
     );

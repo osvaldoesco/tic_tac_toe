@@ -4,9 +4,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-//Const
-import { zeroGreenImg, xGreenImg  } from '../const/Game';
-
 library.add(faTimes);
 
 class Home extends Component {
@@ -43,6 +40,13 @@ class Home extends Component {
     return (
       <Container>
         <Row>
+          <Col xs="12" md={{offset:2, size: 8}} >
+            <div className="home-preview__cont">
+              <img alt="preview" title="preview" src="/assets/img/preview.png" className="home-preview__img"/>
+            </div>
+          </Col>
+        </Row>
+        <Row>
           <Col xs="12" md={{offset:2, size: 8}}>
             <h3 className="title-inf"> DESCRIPTION </h3>
             <p className="text-inf">
@@ -66,7 +70,7 @@ class Home extends Component {
         <Row className="padding-40px">
           <Col xs="12" md={{offset:2, size:4}} className="text-center">
             <a href="/classic">
-              <img alt="classic" title="classic" src={xGreenImg} width="200"/>
+              <img alt="classic" title="classic" src="/assets/img/classic.png" width="200"/>
             </a>
             <h4 className="title-inf"> CLASSIC </h4>
             <p className="text-inf">
@@ -78,7 +82,7 @@ class Home extends Component {
             { (this.state.showCustomized) ?
               <div className="customized-value padding-100px">
                 <a
-                  href="#"
+                  href="/"
                   onClick={(e) => this.onCustomizedChange(e)}
                   className="close-customized">
                   <FontAwesomeIcon icon="times" />
@@ -87,7 +91,7 @@ class Home extends Component {
                 <input
                   name="value"
                   className="form-control"
-                  placeholder="5"
+                  placeholder="Insert"
                   type="number"
                   value={this.state.value}
                   onChange={(e) => this.onValueChange(e)} />
@@ -98,8 +102,8 @@ class Home extends Component {
               </div>
               :
               <div>
-                <a href="#" onClick={(e) => this.onCustomizedChange(e)}>
-                  <img alt="customized" title="customized" src={zeroGreenImg} width="200" />
+                <a href="/" onClick={(e) => this.onCustomizedChange(e)}>
+                  <img alt="customized" title="customized" src="/assets/img/customized.png" width="200" />
                 </a>
                 <h4 className="title-inf"> NxN Mode </h4>
                 <p className="text-inf">
