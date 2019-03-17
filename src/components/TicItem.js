@@ -4,7 +4,11 @@ import {
   valueX,
   emptyImg,
   zeroPurpleImg,
-  xBlueImg }
+  xBlueImg,
+  valueXWinner,
+  value0Winner,
+  xGreenImg,
+  zeroGreenImg}
 from '../const/Game';
 
 const TicItem = ({value}) => {
@@ -15,6 +19,12 @@ const TicItem = ({value}) => {
       break;
     case valueX:
       imagePath = xBlueImg;
+      break;
+    case valueXWinner:
+      imagePath = xGreenImg;
+      break;
+    case value0Winner:
+      imagePath = zeroGreenImg;
       break;
     default:
   }
