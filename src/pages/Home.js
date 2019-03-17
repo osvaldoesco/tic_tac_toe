@@ -70,7 +70,7 @@ class Home extends Component {
         <Row className="padding-40px">
           <Col xs="12" md={{offset:2, size:4}} className="text-center">
             <a href="/classic">
-              <img alt="classic" title="classic" src="/assets/img/classic.png" width="200"/>
+              <img alt="classic" title="classic" src="/assets/img/classic.png" width="200" className="img-hover"/>
             </a>
             <h4 className="title-inf"> CLASSIC </h4>
             <p className="text-inf">
@@ -103,7 +103,7 @@ class Home extends Component {
               :
               <div>
                 <a href="/" onClick={(e) => this.onCustomizedChange(e)}>
-                  <img alt="customized" title="customized" src="/assets/img/customized.png" width="200" />
+                  <img alt="customized" title="customized" src="/assets/img/customized.png" width="200" className="img-hover" />
                 </a>
                 <h4 className="title-inf"> NxN Mode </h4>
                 <p className="text-inf">

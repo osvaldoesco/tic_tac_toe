@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import Confetti from 'react-confetti';
 import TicItem from './TicItem';
-import { value0, valueX, grid3 } from '../const/Game';
+//Const
+import { value0, valueX, grid3, zeroGreenImg, xGreenImg  } from '../const/Game';
+
+const heightW = window.innerHeight + 'px'
+const widthW = window.innerWidth + 'px'
+
 
 class Game extends Component {
   constructor(props){
@@ -10,13 +16,17 @@ class Game extends Component {
     let matrix = [];
     let turn = 0;
     let live = true;
+    let winner = null;
+    let chooseSpace = false;
+    let tie = false;
+    let confetti = false;
     for(let i=0; i<n; i++) {
       matrix[i] = [];
       for(let j=0; j<n; j++) {
         matrix[i][j] = null;
       }
     }
-    this.state = { matrix, n, turn, live };
+    this.state = { matrix, n, turn, live, winner, chooseSpace, confetti };
   }
 
   listTicItems = () => {
@@ -40,6 +50,7 @@ class Game extends Component {
   }
 
   setValue = (i, j) => {
+    this.setState({chooseSpace: false});
     if(this.state.live === false) return 0;//Verify if the game still live
     let { matrix, turn, n } = this.state;
     //Validate if the space is available
@@ -49,18 +60,17 @@ class Game extends Component {
       this.setState({ matrix });
       let track = this.evaluateWinner(value);
       if(track === 1){
-        this.setState({live: false});
-        alert('Ganaste');
+        this.setState({live: false, winner: value, confetti: true});//Select the winner
+        setTimeout(() => {this.setState({confetti: false});},4000);
       }
       this.setState({turn: turn+1 });
       if(turn ===((n*n)-1) && (track===0)){
-        this.setState({live: false});
-        alert("Empate");
+        this.setState({live: false, tie: true});//TIE in the game
         return 0;
       }
     } else {
       if(this.state.live){
-        alert("Seleccione otro espacio");
+        this.setState({chooseSpace: true});
       }
     }
   }
@@ -125,6 +135,8 @@ class Game extends Component {
     let live = true;
     let {matrix, n} = this.state;
     let turn = 0;
+    let winner = null;
+    let tie = false;
     for(let i=0; i<n; i++) {
       matrix[i] = [];
       for(let j=0; j<n; j++) {
@@ -132,7 +144,7 @@ class Game extends Component {
       }
     }
 
-    this.setState({ live, matrix, turn });
+    this.setState({ live, matrix, turn, winner, tie });
   }
 
   render() {
@@ -141,6 +153,42 @@ class Game extends Component {
         <Row className="padding-20px">
           { (this.state.n === grid3) ?
             <Col xs={{offset: 1, size: 10}} md={{offset:4, size:4}}>
+              <div className="messages-cont">
+                { (this.state.winner !== null) ?
+                  <div className="win-message">
+                    You won
+                    <img
+                      alt="winner"
+                      title="winner"
+                      src={(this.state.winner === valueX) ? xGreenImg : zeroGreenImg}
+                      className="winner-img"/>
+                      <Confetti
+                         width={widthW}
+                         height={heightW}
+                         numberOfPieces={300}
+                         recycle={false}
+                         className={`confe ${(this.state.confetti) ? '' : 'display-none'}`}
+                       />
+                  </div>
+                  :
+                  ''
+                }
+                { (this.state.tie) ?
+                  <div className="tie-message">
+                    TIE <span>TIE</span>
+                  </div>
+                  :
+                  ''
+                }
+                { (this.state.chooseSpace) ?
+                  <div className="select-message">
+                    Select another space
+                  </div>
+                  :
+                  ''
+                }
+
+              </div>
               <table>
                 <tbody>
                 {this.listTicItems()}
@@ -161,7 +209,7 @@ class Game extends Component {
           <Col xs="6" md={{offset:3, size:3}}>
             <div className="player-div">
               <button
-                className={`player-button ${ this.isEven(this.state.turn)? '' : 'opacity03' } `}>
+                className={`player-button ${ (!this.isEven(this.state.turn) && this.state.live) ? 'opacity03' : '' } `}>
                 Player 1
               </button>
             </div>
@@ -169,17 +217,19 @@ class Game extends Component {
           <Col xs="6" md={{ size:3 }}>
             <div className="player-div">
               <button
-                className={`player-button__purple ${ this.isEven(this.state.turn)? 'opacity03' : '' } `}>
+                className={`player-button__purple ${ (this.isEven(this.state.turn) && this.state.live) ? 'opacity03' : '' } `}>
                 Player 2
               </button>
             </div>
           </Col>
         </Row>
         <Row>
-          <Col xs="12" md={{offset:2, size:8}}>
-            <button onClick={() => this.resetGame()} className="btn-reset">
-              Reset
-            </button>
+          <Col xs="12" md={{offset:4, size:4}}>
+            <div className="reset-cont">
+              <button onClick={() => this.resetGame()} className="btn-reset">
+                Reset
+              </button>
+            </div>
           </Col>
         </Row>
       </Container>
